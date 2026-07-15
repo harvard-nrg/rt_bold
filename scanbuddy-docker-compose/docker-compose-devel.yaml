@@ -1,7 +1,7 @@
 services:
   scanbuddy-web:
     volumes:
-      - ../scripts/start.py:/sw/miniforge/envs/python3.13t/bin/start.py
-      - ../scripts/simulator.py:/sw/miniforge/envs/python3.13t/bin/simulator.py
-      - ../scanbuddy:/sw/miniforge/envs/python3.13t/lib/python3.13t/site-packages/scanbuddy
+      - ../scripts/start.py:/sw/miniforge/envs/python3.14t/bin/start.py
+      - ../scripts/simulator.py:/sw/miniforge/envs/python3.14t/bin/simulator.py
+      - ../scanbuddy:/sw/miniforge/envs/python3.14t/lib/python3.14t/site-packages/scanbuddy
     command: ["-c", "/etc/scanbuddy.yaml", "--folder", "/data", "--host", "0.0.0.0", "--broker-host", "scanbuddy-broker"]

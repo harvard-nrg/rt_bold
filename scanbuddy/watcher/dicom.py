@@ -64,6 +64,11 @@ class DicomHandler(PatternMatchingEventHandler):
                 logger.info(f'file {path} no longer exists')
                 return
             ds = self.read_dicom(path)
+            image_component = ds.get((0x0008, 0x9208))
+            if image_component and image_component.value == 'PHASE':
+                logger.info(f'deleting phase file {path}')
+                path.unlink()
+                return
             self.check_series(ds, path)
             path = self.construct_path(path, ds)
             logger.info(f'publishing message to parent-proc topic with ds={path}')
