@@ -160,8 +160,14 @@ class BoldProcessor:
         do not process that dicom.
         '''
         sequence = ds[(0x5200, 0x9230)][0]
-        siemens_private_tag = sequence[(0x0021, 0x11fe)][0]
-        scan_string = str(siemens_private_tag[(0x0021, 0x1175)].value)
+
+        try:
+            siemens_private_tag = sequence[(0x0021, 0x11fe)][0]
+            scan_string = str(siemens_private_tag[(0x0021, 0x1175)].value)
+        except KeyError:
+            siemens_private_tag = sequence[(0x0021, 0x10fe)][0]
+            scan_string = str(siemens_private_tag[(0x0021, 0x1075)].value)
+            
         if 'NOISE' in scan_string:
             logger.info(f'Volume {vol_number} found to be a noise volume. Not processing.')
             return True
@@ -178,8 +184,12 @@ class BoldProcessor:
         'TE2' is found or no reference to 'TE' is found
         '''
         sequence = ds[(0x5200, 0x9230)][0]
-        siemens_private_tag = sequence[(0x0021, 0x11fe)][0]
-        scan_string = str(siemens_private_tag[(0x0021, 0x1175)].value)
+        try:
+            siemens_private_tag = sequence[(0x0021, 0x11fe)][0]
+            scan_string = str(siemens_private_tag[(0x0021, 0x1175)].value)
+        except KeyError:
+            siemens_private_tag = sequence[(0x0021, 0x10fe)][0]
+            scan_string = str(siemens_private_tag[(0x0021, 0x1075)].value)
         if 'TE2' in scan_string:
             logger.info('multi-echo scan detected')
             logger.info(f'using 2nd echo time: {self.get_echo_time(ds)}')
