@@ -1,6 +1,6 @@
 __title__ = 'scanbuddy'
 __description__ = 'fMRI Motion Plotting and SNR Calculation'
 __url__ = 'https://github.com/harvard-nrg/scanbuddy'
-__version__ = '0.5.0'
+__version__ = '0.5.1'
 __author__ = 'Neuroinformatics Research Group'
 __author_email__ = 'info@neuroinfo.org'
